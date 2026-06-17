@@ -14,17 +14,17 @@ namespace Dsw2026Ej15.Api.Controllers
         {
             _persistence = persistence;
         }
-        [HttpPost] 
-        public async Task<IActionResult> CreateDoctor([FromBody]DoctorModel.Request request )
+        [HttpPost]
+        public async Task<IActionResult> CreateDoctor([FromBody] DoctorModel.Request request)
         {
             if (string.IsNullOrWhiteSpace(request.Name) ||
                 string.IsNullOrWhiteSpace(request.LicenseNumber))
-                {
+            {
                 return BadRequest("Nombre y matricula son requeridos");
             }
 
             var speciality = _persistence.GetSpecialityById(request.SpecialityId);
-            if(speciality == null)
+            if (speciality == null)
             {
                 return BadRequest("La especialidad no existe");
             }
@@ -43,11 +43,23 @@ namespace Dsw2026Ej15.Api.Controllers
         public IActionResult GetDoctors()
         {
             var doctors = _persistence.GetDoctors()
-                .Where(d => d.IsActive)
-                .ToList();
+                .Where(d => d.IsActive);
+
 
             return Ok(doctors);
         }
-       
+        [HttpGet("{id}")]
+        public IActionResult GetDoctorById(Guid id)
+        {
+            var doctor = _persistence.GetDoctors().SingleOrDefault(d => d.Id == id && d.IsActive);
+
+            if (doctor == null || !doctor.IsActive)
+            {
+                return NotFound();
+            }
+
+            return Ok(doctor);
+        }
+
     }
 }
