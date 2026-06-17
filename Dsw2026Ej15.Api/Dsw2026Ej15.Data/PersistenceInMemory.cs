@@ -41,4 +41,14 @@ public class PersistenceInMemory : IPersistence
             Console.WriteLine($"[Persistencia] Error crítico al cargar especialidades: {ex.Message}");
         }
     }
+
+    public List<Doctor> GetDoctors()
+    {
+        return _doctors;
+    }
+
+    public void AddDoctor(Doctor doctor)
+    {
+        _doctors.Add(doctor);
+    }
 }
