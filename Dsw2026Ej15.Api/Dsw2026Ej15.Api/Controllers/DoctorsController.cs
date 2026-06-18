@@ -2,7 +2,7 @@ using Dsw2026Ej15.Api.Models;
 using Dsw2026Ej15.Domain.Entities;
 using Dsw2026Ej15.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+using Dsw2026Ej15.Domain.Exceptions;
 
 namespace Dsw2026Ej15.Api.Controllers
 {
@@ -57,7 +57,7 @@ namespace Dsw2026Ej15.Api.Controllers
         {
             var doctor = _persistence.GetDoctors().SingleOrDefault(d => d.Id == id && d.IsActive);
 
-            if (doctor == null || !doctor.IsActive)
+            if (doctor == null)
             {
                 return NotFound();
             }

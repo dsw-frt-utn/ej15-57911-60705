@@ -1,4 +1,5 @@
 
+using Dsw2026Ej15.Api.Middleware;
 using Dsw2026Ej15.Data;
 using Dsw2026Ej15.Domain.Interfaces;
 
@@ -16,6 +17,7 @@ namespace Dsw2026Ej15.Api
             builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<IPersistence, PersistenceInMemory>();
+            builder.Services.AddHealthChecks();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             //builder.Services.AddOpenApi();
 
@@ -29,8 +31,12 @@ namespace Dsw2026Ej15.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseAuthorization();
             app.MapControllers();
+
+            app.MapHealthChecks("/health-check");
 
             app.Run();
         }
