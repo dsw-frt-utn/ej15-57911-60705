@@ -19,4 +19,9 @@ public class Doctor : BaseEntity
         IsActive = true;
 
     }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }
