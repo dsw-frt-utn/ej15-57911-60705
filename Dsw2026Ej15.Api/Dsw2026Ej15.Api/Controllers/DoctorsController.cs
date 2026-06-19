@@ -7,7 +7,7 @@ using Dsw2026Ej15.Domain.Exceptions;
 namespace Dsw2026Ej15.Api.Controllers
 {
     [ApiController]
-    [Route("api/doctors")] //utiliza como ruta en el endpoint 
+    [Route("api/doctors")] 
     public class DoctorController : ControllerBase
     {
         private readonly IPersistence _persistence;
@@ -21,14 +21,12 @@ namespace Dsw2026Ej15.Api.Controllers
             if (string.IsNullOrWhiteSpace(request.Name) ||
                 string.IsNullOrWhiteSpace(request.LicenseNumber))
             {
-                //return BadRequest("Nombre y matricula son requeridos"); se cambia esto?
                 throw new ValidationException("Nombre y matrícula son requeridos");
             }
 
             var speciality = _persistence.GetSpecialityById(request.SpecialityId);
             if (speciality == null)
             {
-                //return BadRequest("La especialidad no existe");
                 throw new ValidationException("La especialidad no existe");
             }
 
