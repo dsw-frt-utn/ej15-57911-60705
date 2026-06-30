@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace Dsw2026Ej15.Data;
 
-public class PersistenceInMemory : IPersistence
+public class PersistenceInMemory 
 {
     private List<Speciality> _specialities = [];
     private List<Doctor> _doctors = [];
@@ -42,7 +42,7 @@ public class PersistenceInMemory : IPersistence
         }
     }
 
-    public List<Doctor> GetDoctors()
+    public List<Doctor> GetAllDoctors()
     {
         return _doctors;
     }
